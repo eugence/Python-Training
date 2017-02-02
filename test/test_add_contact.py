@@ -17,21 +17,20 @@ class test_add_contact(unittest.TestCase):
     
     def test_add_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_contact(wd, Contact(first_name="first", middle_name="middle", last_name="last", nickname="fml", title="title", company_name="company", address1="addr",
                             email="first.lastmiddle.@company.com", birth_year="1980", address2="addr2"))
-        self.open_home_page(wd)
+        self.logout()
 
     def test_add_empty_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_contact(wd, Contact(first_name="", middle_name="", last_name="", nickname="", title="", company_name="", address1="",
                             email="", birth_year="", address2=""))
-        self.open_home_page(wd)
+        self.logout()
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -79,6 +78,13 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("address2").send_keys(contact.address2)
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        # return to home page
+        self.open_home_page(wd)
+
+    def logout(self):
+        wd = self.wd
+        wd.find_element_by_link_text("Logout").click()
+
 
     def tearDown(self):
         self.wd.quit()
