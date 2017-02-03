@@ -23,6 +23,3 @@ def test_add_empty_contact(app):
     app.create_contact(Contact(first_name="", middle_name="", last_name="", nickname="", title="", company_name="", address1="",
                         email="", birth_year="", address2=""))
     app.logout()
-
-if __name__ == '__main__':
-    unittest.main()
