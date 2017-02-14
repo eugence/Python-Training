@@ -11,4 +11,3 @@ def test_modify_group_header(app):
     app.session.login(username="admin", password="secret")
     app.group.modify_first_group(Group(header="new group header"))
     app.session.logout()
-
